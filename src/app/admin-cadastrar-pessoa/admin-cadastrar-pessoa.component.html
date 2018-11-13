@@ -1,0 +1,30 @@
+<h1>Cadastrar Pessoa</h1>
+<br>
+<form class="mt-1" #cadastro="ngForm" (submit)="salvar()">
+  <div *ngIf="salvar_ok" class="alert alert-success">
+    Pessoa salva com sucesso!
+  </div>
+  <div *ngIf="salvar_erro" class="alert alert-warning">
+    Não foi possível salvar a pessoa. Tente novamente dentro de instantes.
+  </div>
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="nome" [(ngModel)]="nome" #campo_nome="ngModel" class="form-control form-control-lg"
+      [class.is-invalid]="campo_nome.invalid && (campo_nome.dirty || campo_nome.touched)" (change)="slugify_nome()"
+      required minlength="5">
+  <div *ngIf="campo_nome.invalid && (campo_nome.dirty || campo_nome.touched)" class="invalid-feedback">
+      <span *ngIf="campo_nome.errors.required">
+        O nome é obrigatório.
+      </span>
+      <span *ngIf="campo_nome.errors.minlength">
+      O título precisa ter, pelo menos, 5 caracteres.
+      </span>
+  </div>
+  <div class="form-group">
+    <label for="email">E-mail</label>
+    <input type="email" name="email" id="email" [(ngModel)]="email" class="form-control form-control-lg">
+  </div>
+  <div>
+    <button class="btn btn-primary" [disabled]="!cadastro.form.valid">Salvar</button>
+  </div>
+  
